@@ -1,28 +1,22 @@
 class ContactsController < ApplicationController
   def index
     contacts = Contact.all
-    output = []
-    contacts.each do |contact|
-      output << {
-        id: contact.id,
-        first_name: contact.first_name,
-        last_name: contact.last_name,
-        email: contact.email,
-        phone_number: contact.phone_number
-      }
-    end
-    render json: output
+    render json: contacts.as_json
   end
 
   def show
     contact = Contact.find_by(id: params[:id])
-    output = {
-      id: contact.id,
-      first_name: contact.first_name,
-      last_name: contact.last_name,
-      email: contact.email,
-      phone_number: contact.phone_number
-    }
-    render json: output
+    render json: contact.to_json
+  end
+
+  def create
+    contact = Contact.new(
+      first_name: params[:first_name],
+      last_name: params[:last_name],
+      email: params[:email],
+      phone_number: params[:phone_number]
+    )
+    contact.save
+    render json: contact.to_json
   end
 end
