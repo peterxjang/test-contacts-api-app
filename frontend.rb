@@ -7,7 +7,8 @@ while true
   puts "[1] Show all contacts"
   puts "[2] Show one contact"
   puts "[3] Create a new contact"
-  puts "[4] Exit"
+  puts "[4] Update a contact"
+  puts "[0] Exit"
   option = gets.chomp
   system "clear"
   if option == "1"
@@ -34,10 +35,27 @@ while true
     print "Phone number: "
     params[:phone_number] = gets.chomp
     new_contact = Unirest.post("http://localhost:3000/contacts", parameters: params).body
-    p new_contact
+    pp new_contact
     puts "Press enter to continue"
     gets.chomp
   elsif option == "4"
+    puts "Enter the id of a contact to show:"
+    id = gets.chomp
+    contact = Unirest.get("http://localhost:3000/contacts/#{id}").body
+    params = {}
+    print "First name (#{contact["first_name"]}): "
+    params[:first_name] = gets.chomp
+    print "Last name (#{contact["last_name"]}): "
+    params[:last_name] = gets.chomp
+    print "Email (#{contact["email"]}): "
+    params[:email] = gets.chomp
+    print "Phone number (#{contact["phone_number"]}): "
+    params[:phone_number] = gets.chomp
+    updated_contact = Unirest.patch("http://localhost:3000/contacts/#{id}", parameters: params).body
+    pp updated_contact
+    puts "Press enter to continue"
+    gets.chomp
+  elsif option == "0"
     puts "Thank you! Goodbye."
     break
   else

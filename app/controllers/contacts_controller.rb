@@ -19,4 +19,14 @@ class ContactsController < ApplicationController
     contact.save
     render json: contact.to_json
   end
+
+  def update
+    contact = Contact.find_by(id: params[:id])
+    contact.first_name = params[:first_name] if params[:first_name].present?
+    contact.last_name = params[:last_name] if params[:last_name].present?
+    contact.email = params[:email] if params[:email].present?
+    contact.phone_number = params[:phone_number] if params[:phone_number].present?
+    contact.save
+    render json: contact
+  end
 end
