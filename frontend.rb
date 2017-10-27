@@ -8,6 +8,7 @@ while true
   puts "[2] Show one contact"
   puts "[3] Create a new contact"
   puts "[4] Update a contact"
+  puts "[5] Destroy a contact"
   puts "[0] Exit"
   option = gets.chomp
   system "clear"
@@ -53,6 +54,13 @@ while true
     params[:phone_number] = gets.chomp
     updated_contact = Unirest.patch("http://localhost:3000/contacts/#{id}", parameters: params).body
     pp updated_contact
+    puts "Press enter to continue"
+    gets.chomp
+  elsif option == "5"
+    puts "Enter the id of a contact to destroy:"
+    id = gets.chomp
+    response = Unirest.delete("http://localhost:3000/contacts/#{id}").body
+    puts response["message"]
     puts "Press enter to continue"
     gets.chomp
   elsif option == "0"
