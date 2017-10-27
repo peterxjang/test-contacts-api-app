@@ -9,6 +9,7 @@ while true
   puts "[3] Create a new contact"
   puts "[4] Update a contact"
   puts "[5] Destroy a contact"
+  puts "[6] Search contacts"
   puts "[0] Exit"
   option = gets.chomp
   system "clear"
@@ -61,6 +62,13 @@ while true
     id = gets.chomp
     response = Unirest.delete("http://localhost:3000/contacts/#{id}").body
     puts response["message"]
+    puts "Press enter to continue"
+    gets.chomp
+  elsif option == "6"
+    puts "Enter search terms:"
+    search_terms = gets.chomp
+    contacts = Unirest.get("http://localhost:3000/contacts?search=#{search_terms}").body
+    pp contacts
     puts "Press enter to continue"
     gets.chomp
   elsif option == "0"
