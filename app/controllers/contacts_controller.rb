@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
   def index
     search_term = params[:search]
     if search_term
-      contacts = Contact.where("first_name LIKE ?", "%#{search_term}%")
+      contacts = Contact.where("first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ? OR phone_number ILIKE ?", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%")
     else
       contacts = Contact.all
     end
