@@ -1,12 +1,12 @@
 class ContactsController < ApplicationController
   def index
     contacts = Contact.all
-    render json: contacts.as_json(methods: [:full_name, :friendly_time])
+    render json: contacts.as_json
   end
 
   def show
     contact = Contact.find_by(id: params[:id])
-    render json: contact.as_json(methods: [:full_name, :friendly_time])
+    render json: contact.as_json
   end
 
   def create
@@ -17,7 +17,7 @@ class ContactsController < ApplicationController
       phone_number: params[:phone_number]
     )
     contact.save
-    render json: contact.as_json(methods: [:full_name, :friendly_time])
+    render json: contact.as_json
   end
 
   def update
@@ -27,7 +27,7 @@ class ContactsController < ApplicationController
     contact.email = params[:email] if params[:email].present?
     contact.phone_number = params[:phone_number] if params[:phone_number].present?
     contact.save
-    render json: contact.as_json(methods: [:full_name, :friendly_time])
+    render json: contact.as_json
   end
 
   def destroy
