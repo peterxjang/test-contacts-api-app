@@ -14,4 +14,4 @@ class Contact < ApplicationRecord
     options[:include] = [{:user => {:except => :password_digest}}]
     super
   end
-end
+end 
