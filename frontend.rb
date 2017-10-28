@@ -10,6 +10,7 @@ while true
   puts "[4] Update a contact"
   puts "[5] Destroy a contact"
   puts "[6] Search contacts"
+  puts "[7] Register (create a user)"
   puts "[0] Exit"
   option = gets.chomp
   system "clear"
@@ -69,6 +70,21 @@ while true
     search_terms = gets.chomp
     contacts = Unirest.get("http://localhost:3000/contacts?search=#{search_terms}").body
     pp contacts
+    puts "Press enter to continue"
+    gets.chomp
+  elsif option == "7"
+    puts "Register"
+    params = {}
+    print "Name: "
+    params[:name] = gets.chomp
+    print "Email: "
+    params[:email] = gets.chomp
+    print "Password: "
+    params[:password] = gets.chomp
+    print "Password confirmation: "
+    params[:password_confirmation] = gets.chomp
+    response = Unirest.post("http://localhost:3000/users", parameters: params).body
+    pp response
     puts "Press enter to continue"
     gets.chomp
   elsif option == "0"
