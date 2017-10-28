@@ -1,4 +1,6 @@
 class Contact < ApplicationRecord
+  belongs_to :user
+
   def friendly_time
     created_at.strftime("%B %e, %Y")
   end
@@ -9,6 +11,7 @@ class Contact < ApplicationRecord
 
   def as_json(options={})
     options[:methods] = [:full_name, :friendly_time]
+    options[:include] = [{:user => {:except => :password_digest}}]
     super
   end
 end
