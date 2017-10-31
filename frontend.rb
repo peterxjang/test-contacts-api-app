@@ -6,17 +6,17 @@ jwt = ""
 while true
   system "clear"
   puts "CONTACTS APP - Choose an option:"
-  puts "[1] Show all contacts"
-  puts "[2] Show one contact"
-  puts "[3] Create a new contact"
-  puts "[4] Update a contact"
-  puts "[5] Destroy a contact"
-  puts "[6] Search contacts"
-  puts
   if jwt == ""
     puts "[7] Register (create a user)"
     puts "[8] Login"
   else
+    puts "[1] Show all contacts"
+    puts "[2] Show one contact"
+    puts "[3] Create a new contact"
+    puts "[4] Update a contact"
+    puts "[5] Destroy a contact"
+    puts "[6] Search contacts"
+    puts
     puts "[9] Logout"
   end
   puts
