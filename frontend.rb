@@ -11,6 +11,7 @@ while true
     puts "[8] Login"
   else
     puts "[1] Show all contacts"
+    puts "[1.1] Show all contacts in a group"
     puts "[2] Show one contact"
     puts "[3] Create a new contact"
     puts "[4] Update a contact"
@@ -26,6 +27,18 @@ while true
   if option == "1"
     puts "Here are all the contacts:"
     contacts = Unirest.get("http://localhost:3000/contacts", headers: {Authorization: "Bearer #{jwt}"}).body
+    pp contacts
+    puts "Press enter to continue"
+    gets.chomp
+  elsif option == "1.1"
+    groups = Unirest.get("http://localhost:3000/groups", headers: {Authorization: "Bearer #{jwt}"}).body
+    puts "Select a group:"
+    groups.each do |group|
+      puts "[#{group["id"]}] #{group["name"]}"
+    end
+    selected_group_id = gets.chomp
+    puts "Here are all the contacts:"
+    contacts = Unirest.get("http://localhost:3000/contacts?group_id=#{selected_group_id}", headers: {Authorization: "Bearer #{jwt}"}).body
     pp contacts
     puts "Press enter to continue"
     gets.chomp

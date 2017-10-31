@@ -18,7 +18,10 @@ class Contact < ApplicationRecord
 
   def as_json(options={})
     options[:methods] = [:full_name, :friendly_time]
-    options[:include] = [{:user => {:except => :password_digest}}]
+    options[:include] = [
+      {:user => {:except => :password_digest}},
+      :groups
+    ]
     super
   end
 end 

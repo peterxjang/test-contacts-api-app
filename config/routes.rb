@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   patch "/contacts/:id" => "contacts#update"
   delete "/contacts/:id" => "contacts#destroy"
 
+  get "/groups" => "groups#index"
+
   post "/users" => "users#create"
 end

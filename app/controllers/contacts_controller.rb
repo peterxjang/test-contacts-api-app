@@ -8,6 +8,10 @@ class ContactsController < ApplicationController
       if search_term
         contacts = contacts.where("first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ? OR phone_number ILIKE ?", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%")
       end
+      group_id = params[:group_id]
+      if group_id
+        contacts = Group.find_by(id: group_id).contacts.where(user_id: current_user.id)
+      end
       render json: contacts.as_json
     else
       render json: []
