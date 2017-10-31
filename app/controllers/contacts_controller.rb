@@ -22,10 +22,14 @@ class ContactsController < ApplicationController
       first_name: params[:first_name],
       last_name: params[:last_name],
       email: params[:email],
-      phone_number: params[:phone_number]
+      phone_number: params[:phone_number],
+      user_id: current_user.id
     )
-    contact.save
-    render json: contact.as_json
+    if contact.save
+      render json: contact.as_json, status: :created
+    else
+      render json: {errors: contact.errors.full_messages}, status: :bad_request
+    end
   end
 
   def update
