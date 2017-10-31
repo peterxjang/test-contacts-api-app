@@ -38,8 +38,11 @@ class ContactsController < ApplicationController
     contact.last_name = params[:last_name] if params[:last_name].present?
     contact.email = params[:email] if params[:email].present?
     contact.phone_number = params[:phone_number] if params[:phone_number].present?
-    contact.save
-    render json: contact.as_json
+    if contact.save
+      render json: contact.as_json, status: :ok
+    else
+      render json: {errors: contact.errors.full_messages}, status: :bad_request
+    end
   end
 
   def destroy
